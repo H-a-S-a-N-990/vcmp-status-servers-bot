@@ -28,6 +28,10 @@ const commands = [
             },
         ],
     },
+    {
+        name: 'botinfo',
+        description: 'Get information about the bot',
+    },
 ];
 
 const rest = new REST({ version: '9' }).setToken(TOKEN);
@@ -94,6 +98,21 @@ client.on('interactionCreate', async (interaction) => {
             console.error(error);
             await interaction.reply({ content: 'Error fetching server information. Please try again later.', ephemeral: true });
         }
+    } else if (commandName === 'botinfo') {
+        const embed = {
+            color: 0x0099ff,
+            title: 'Bot Information',
+            fields: [
+                { name: 'Creator', value: 'Hasan', inline: true },
+                { name: 'Language', value: 'JavaScript', inline: true },
+                { name: 'Framework', value: 'Discord.js', inline: true },
+                { name: 'Servers', value: `${client.guilds.cache.size} servers`, inline: true },
+                { name: 'Version', value: '1.0.0', inline: true }, // You can specify your bot's version
+            ],
+            timestamp: new Date(),
+        };
+
+        await interaction.reply({ embeds: [embed] });
     }
 });
 
