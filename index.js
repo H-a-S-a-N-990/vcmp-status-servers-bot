@@ -80,8 +80,9 @@ client.on('interactionCreate', async (interaction) => {
 
                 const embed = {
                     color: 0x0099ff,
-                    title: `Server Info for ${state.name}`,
+                    title: `Server Info for ${ip}:${port}`,
                     fields: [
+                        { name: 'Server Name', value: state.state.name, inline: true },
                         { name: 'Game Mode', value: state.raw.gamemode, inline: true },
                         { name: 'Players', value: `${state.raw.numplayers}/${state.maxplayers}`, inline: true },
                         { name: 'Player Names', value: players, inline: false },
