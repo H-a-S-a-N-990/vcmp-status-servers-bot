@@ -7,7 +7,7 @@ const client = new Client({
 
 const TOKEN = 'MTI5OTU5MDMzMzMwMjMwODg5Nw.GZIdDy._qubR17AVw9JZnDqJJ8yPm6W0ixFWmXKw3nIUg'; // Replace with your bot token
 const CLIENT_ID = '1299590333302308897'; // Replace with your client ID
-const GUILD_ID = 'YOUR_GUILD_ID'; // Replace with your guild ID
+const GUILD_ID = '1299603093838630973'; // Replace with your guild ID
 
 const commands = [
     {
