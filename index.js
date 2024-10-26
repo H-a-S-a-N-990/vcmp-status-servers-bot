@@ -2,7 +2,7 @@ require('dotenv').config(); // Load environment variables from .env file
 const { Client, GatewayIntentBits, REST, Routes } = require('discord.js');
 const axios = require('axios');
 const express = require('express'); 
-//
+
 const app = express(); // 
 
 const client = new Client({
@@ -31,6 +31,10 @@ const commands = [
             },
         ],
     },
+    {
+        name: 'botinfo',
+        description: 'Get information about the bot',
+    },
 ];
 
 const rest = new REST({ version: '9' }).setToken(TOKEN);
@@ -51,10 +55,10 @@ const rest = new REST({ version: '9' }).setToken(TOKEN);
 })();
 
 client.on('ready', () => {
-  console.log('Bot is online!')
+    console.log('Bot is online!');
     console.log(`Logged in as ${client.user.tag}`);
- client.user.setActivity('a game', {type : 'STREAMING'} )
-   })
+    client.user.setActivity('a game', { type: 'STREAMING' });
+});
 
 app.get('/', (req, res) => {
     res.send('Hello World'); // Respond with "Hello World"
@@ -82,26 +86,24 @@ client.on('interactionCreate', async (interaction) => {
             if (data.msg === 'success') {
                 const state = data.state;
 
-                // Extract player names properly
                 const players = state.players.length > 0 
-                    ? state.players.map(player => player.name).join(', ') // Assuming 'name' is the correct property
+                    ? state.players.map(player => player.name).join(', ')
                     : 'No players online';
 
-                // Check if the server is passworded
-                const isPassworded = state.raw.passworded ? 'Yes' : 'No'; // Adjust based on the actual property name
+                const isPassworded = state.raw.passworded ? 'Yes' : 'No';
 
                 const embed = {
                     color: 0x0099ff,
-                    title: `Server Info for ${ip}:${port}`, // Updated title to include IP and port
+                    title: `Server Info for ${ip}:${port}`,
                     fields: [
-                        { name: 'Server Name', value: state.name, inline: true }, // Added server name field
+                        { name: 'Server Name', value: state.name, inline: true },
                         { name: 'Game Mode', value: state.raw.gamemode, inline: true },
                         { name: 'Players', value: `${state.raw.numplayers}/${state.maxplayers}`, inline: true },
                         { name: 'Player Names', value: players, inline: false },
                         { name: 'Map', value: state.raw.map, inline: true },
                         { name: 'Version', value: state.raw.version, inline: true },
                         { name: 'Ping', value: `${state.ping} ms`, inline: true },
-                        { name: 'Password Protected', value: isPassworded, inline: true }, // Added password protection info
+                        { name: 'Password Protected', value: isPassworded, inline: true },
                     ],
                     timestamp: new Date(),
                 };
@@ -114,6 +116,21 @@ client.on('interactionCreate', async (interaction) => {
             console.error(error);
             await interaction.reply({ content: 'Error fetching server information. Please try again later.', ephemeral: true });
         }
+    } else if (commandName === 'botinfo') {
+        const embed = {
+            color: 0x0099ff,
+            title: 'Bot Information',
+            fields: [
+                { name: 'Creator', value: 'Your Name', inline: true }, // Replace with your name
+ { name: 'Programming Language', value: ' JavaScript', inline: true },
+                { name: 'Library', value: 'discord.js', inline: true },
+                { name: 'Version', value: '1.0', inline: true }, // Replace with your bot's version
+                { name: 'Servers', value: `Currently in ${client.guilds.cache.size} servers`, inline: true },
+            ],
+            timestamp: new Date(),
+        };
+
+        await interaction.reply({ embeds: [embed] });
     }
 });
 
