@@ -8,7 +8,6 @@ const client = new Client({
 
 const TOKEN = process.env.DISCORD_TOKEN; // Get token from environment variables
 const CLIENT_ID = process.env.CLIENT_ID; // Get client ID from environment variables
-const GUILD_ID = process.env.GUILD_ID; // Get guild ID from environment variables
 
 const commands = [
     {
@@ -37,7 +36,8 @@ const rest = new REST({ version: '9' }).setToken(TOKEN);
     try {
         console.log('Started refreshing application (/) commands.');
 
-        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+        // Register commands globally
+        await rest.put(Routes.applicationCommands(CLIENT_ID), {
             body: commands,
         });
 
