@@ -121,7 +121,7 @@ client.on('interactionCreate', async (interaction) => {
             color: 0x0099ff,
             title: 'Bot Information',
             fields: [
-                { name: 'Creator', value: 'Your Name', inline: true }, // Replace with your name
+                { name: 'Creator', value: 'H.a.S.a.N', inline: true }, // Replace with your name
  { name: 'Programming Language', value: ' JavaScript', inline: true },
                 { name: 'Library', value: 'discord.js', inline: true },
                 { name: 'Version', value: '1.0', inline: true }, // Replace with your bot's version
