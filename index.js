@@ -1,3 +1,4 @@
+require('dotenv').config(); // Load environment variables from .env file
 const { Client, GatewayIntentBits, REST, Routes } = require('discord.js');
 const axios = require('axios');
 
@@ -5,9 +6,9 @@ const client = new Client({
     intents: [GatewayIntentBits.Guilds],
 });
 
-const TOKEN = 'MTI5OTU5MDMzMzMwMjMwODg5Nw.GuvMHW.IdZMLvXpEqZ6VWM8Gy3q2s5gFCepc1O-eVnP0w'; // Replace with your bot token
-const CLIENT_ID = '1299590333302308897'; // Replace with your client ID
-const GUILD_ID = '1299603093838630973'; // Replace with your guild ID
+const TOKEN = process.env.DISCORD_TOKEN; // Get token from environment variables
+const CLIENT_ID = process.env.CLIENT_ID; // Get client ID from environment variables
+const GUILD_ID = process.env.GUILD_ID; // Get guild ID from environment variables
 
 const commands = [
     {
