@@ -4,7 +4,7 @@
   "description": "A Discord bot that fetches VCMP server information.",
   "main": "index.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node index.js"
   },
   "keywords": [
     "discord",
@@ -12,7 +12,7 @@
     "vcmp",
     "gaming"
   ],
-  "author": "Your Name",
+  "author": "H.a.S.a.N",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
