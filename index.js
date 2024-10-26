@@ -28,10 +28,6 @@ const commands = [
             },
         ],
     },
-    {
-        name: 'botinfo',
-        description: 'Get information about the bot',
-    },
 ];
 
 const rest = new REST({ version: '9' }).setToken(TOKEN);
@@ -55,7 +51,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
     
     // Set the bot's activity
-    client.user.setActivity('monitring VC:MP Servers', { type: 'WATCHING' }); // You can change the type and text as needed
+    client.user.setActivity('VCMP Servers', { type: 'WATCHING' }); // Customize the activity here
 });
 
 client.on('interactionCreate', async (interaction) => {
@@ -84,9 +80,8 @@ client.on('interactionCreate', async (interaction) => {
 
                 const embed = {
                     color: 0x0099ff,
-                    title: `Server Info for ${ip}:${port}`,
+                    title: `Server Info for ${state.name}`,
                     fields: [
-                        { name: 'Server Name', value: state.name, inline: true }, // Added server name
                         { name: 'Game Mode', value: state.raw.gamemode, inline: true },
                         { name: 'Players', value: `${state.raw.numplayers}/${state.maxplayers}`, inline: true },
                         { name: 'Player Names', value: players, inline: false },
@@ -106,22 +101,7 @@ client.on('interactionCreate', async (interaction) => {
             console.error(error);
             await interaction.reply({ content: 'Error fetching server information. Please try again later.', ephemeral: true });
         }
-    } else if (commandName === 'botinfo') {
-        const embed = {
-            color: 0x0099ff,
-            title: 'Bot Information',
-            fields: [
-                { name: 'Creator', value: 'Hasan', inline: true },
-                { name: 'Language', value: 'JavaScript', inline: true },
-                { name: 'Framework', value: 'Discord.js', inline: true },
-                { name: 'Servers', value: `${client.guilds.cache.size} servers`, inline: true },
-                { name: 'Version', value: '1.0.0', inline: true }, // You can specify your bot's version
-            ],
-            timestamp: new Date(),
-        };
-
-        await interaction.reply({ embeds: [embed] });
     }
 });
 
- client.login(TOKEN);
+client.login(TOKEN);
