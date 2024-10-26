@@ -72,6 +72,9 @@ client.on('interactionCreate', async (interaction) => {
                     ? state.players.map(player => player.name).join(', ') // Assuming 'name' is the correct property
                     : 'No players online';
 
+                // Check if the server is password protected
+                const passwordProtected = state.password ? 'Yes' : 'No'; // Assuming 'password' is the correct field
+
                 const embed = {
                     color: 0x0099ff,
                     title: `Server Info for ${state.name}`,
@@ -82,6 +85,7 @@ client.on('interactionCreate', async (interaction) => {
                         { name: 'Map', value: state.raw.map, inline: true },
                         { name: 'Version', value: state.raw.version, inline: true },
                         { name: 'Ping', value: `${state.ping} ms`, inline: true },
+                        { name: 'Password Protected', value: passwordProtected, inline: true }, // New field for password protection
                     ],
                     timestamp: new Date(),
                 };
