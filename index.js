@@ -28,6 +28,10 @@ const commands = [
             },
         ],
     },
+    {
+        name: 'info',
+        description: 'Get information about this bot',
+    },
 ];
 
 const rest = new REST({ version: '9' }).setToken(TOKEN);
@@ -98,6 +102,23 @@ client.on('interactionCreate', async (interaction) => {
             console.error(error);
             await interaction.reply({ content: 'Error fetching server information. Please try again later.', ephemeral: true });
         }
+    } else if (commandName === 'info') {
+        // Get the number of guilds the bot is in
+        const guildCount = client.guilds.cache.size;
+
+        const embed = {
+            color: 0x0099ff,
+            title: 'Bot Information',
+            description: 'This is a Discord bot created by Hasan using Node.js.',
+            fields: [
+                { name: 'Creator', value: 'Hasan', inline: true },
+                { name: 'Technology', value: 'Node.js', inline: true },
+                { name: 'Servers', value: `${guildCount}`, inline: true }, // Display the number of servers
+            ],
+            timestamp: new Date(),
+        };
+
+        await interaction.reply({ embeds: [embed] });
     }
 });
 
