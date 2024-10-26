@@ -1,6 +1,9 @@
 require('dotenv').config(); // Load environment variables from .env file
 const { Client, GatewayIntentBits, REST, Routes } = require('discord.js');
 const axios = require('axios');
+const express = require('express'); 
+//
+const app = express(); // 
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
@@ -52,6 +55,16 @@ client.on('ready', () => {
     
     // Set the bot's activity
     client.user.setActivity('VCMP Servers', { type: 'WATCHING' }); // Customize the activity here
+});
+
+app.get('/', (req, res) => {
+    res.send('Hello World'); // Respond with "Hello World"
+});
+
+// Start the Express server
+const PORT = process.env.PORT || 3000; // Use environment variable or default to 3000
+app.listen(PORT, () => {
+    console.log(`Express server is running on http://localhost:${PORT}`);
 });
 
 client.on('interactionCreate', async (interaction) => {
