@@ -66,7 +66,11 @@ client.on('interactionCreate', async (interaction) => {
 
             if (data.msg === 'success') {
                 const state = data.state;
-                const players = state.players.length > 0 ? state.players.join(', ') : 'No players online';
+
+                // Extract player names properly
+                const players = state.players.length > 0 
+                    ? state.players.map(player => player.name).join(', ') // Assuming 'name' is the correct property
+                    : 'No players online';
 
                 const embed = {
                     color: 0x0099ff,
