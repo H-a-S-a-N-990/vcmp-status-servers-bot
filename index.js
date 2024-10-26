@@ -51,11 +51,10 @@ const rest = new REST({ version: '9' }).setToken(TOKEN);
 })();
 
 client.on('ready', () => {
+  console.log('Bot is online!')
     console.log(`Logged in as ${client.user.tag}`);
-    
-    // Set the bot's activity
-    client.user.setActivity('VCMP Servers', { type: 'WATCHING' }); // Customize the activity here
-});
+ client.user.setActivity('a game', {type : 'STREAMING'} )
+   })
 
 app.get('/', (req, res) => {
     res.send('Hello World'); // Respond with "Hello World"
