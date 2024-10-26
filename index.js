@@ -53,6 +53,9 @@ const rest = new REST({ version: '9' }).setToken(TOKEN);
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}`);
+    
+    // Set the bot's activity
+    client.user.setActivity('monitring VC:MP Servers', { type: 'WATCHING' }); // You can change the type and text as needed
 });
 
 client.on('interactionCreate', async (interaction) => {
@@ -76,16 +79,21 @@ client.on('interactionCreate', async (interaction) => {
                     ? state.players.map(player => player.name).join(', ') // Assuming 'name' is the correct property
                     : 'No players online';
 
+                // Check if the server is passworded
+                const isPassworded = state.raw.passworded ? 'Yes' : 'No'; // Adjust based on the actual property name
+
                 const embed = {
                     color: 0x0099ff,
-                    title: `Server Info for ${state.name}`,
+                    title: `Server Info for ${ip}:${port}`,
                     fields: [
+                        { name: 'Server Name', value: state.name, inline: true }, // Added server name
                         { name: 'Game Mode', value: state.raw.gamemode, inline: true },
                         { name: 'Players', value: `${state.raw.numplayers}/${state.maxplayers}`, inline: true },
                         { name: 'Player Names', value: players, inline: false },
                         { name: 'Map', value: state.raw.map, inline: true },
                         { name: 'Version', value: state.raw.version, inline: true },
                         { name: 'Ping', value: `${state.ping} ms`, inline: true },
+                        { name: 'Password Protected', value: isPassworded, inline: true }, // Added password protection info
                     ],
                     timestamp: new Date(),
                 };
@@ -116,4 +124,4 @@ client.on('interactionCreate', async (interaction) => {
     }
 });
 
-client.login(TOKEN);
+ client.login(TOKEN);
