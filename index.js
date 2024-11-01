@@ -1,5 +1,5 @@
 require('dotenv').config(); // Load environment variables from .env file
-const { Client, GatewayIntentBits, REST, Routes } = require('discord.js');
+const { Client, GatewayIntentBits, REST, Routes, ActivityFlagsBitField, ActivityType } = require('discord.js');
 const axios = require('axios');
 const express = require('express'); 
 
